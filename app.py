@@ -5,8 +5,11 @@ app = Flask(__name__)
 
 # 各クラスのデータベース
 database = {
-    "北館":{},
-    "南館":{
+    "北館1階":{},
+    "北館2階":{},
+    "北館3階":{},
+    "北館4階":{},
+    "南館1階":{
         "1A":["1-A", "混雑していない", ":".join(map(str, [datetime.datetime.now().hour, datetime.datetime.now().minute]))],
         "1B":["1-B", "混雑していない", ":".join(map(str, [datetime.datetime.now().hour, datetime.datetime.now().minute]))],
         "1C":["1-C", "混雑していない", ":".join(map(str, [datetime.datetime.now().hour, datetime.datetime.now().minute]))],
@@ -14,7 +17,19 @@ database = {
         "1E":["1-E", "混雑していない", ":".join(map(str, [datetime.datetime.now().hour, datetime.datetime.now().minute]))],
         "1F":["1-F", "混雑していない", ":".join(map(str, [datetime.datetime.now().hour, datetime.datetime.now().minute]))],
         "1G":["1-G", "混雑していない", ":".join(map(str, [datetime.datetime.now().hour, datetime.datetime.now().minute]))],
+        "1H":["1-H", "混雑していない", ":".join(map(str, [datetime.datetime.now().hour, datetime.datetime.now().minute]))],
+        "1I":["1-I", "混雑していない", ":".join(map(str, [datetime.datetime.now().hour, datetime.datetime.now().minute]))],
+        "1J":["1-J", "混雑していない", ":".join(map(str, [datetime.datetime.now().hour, datetime.datetime.now().minute]))],
+        "1K":["1-K", "混雑していない", ":".join(map(str, [datetime.datetime.now().hour, datetime.datetime.now().minute]))],
+        "1L":["1-L", "混雑していない", ":".join(map(str, [datetime.datetime.now().hour, datetime.datetime.now().minute]))],
+        "1M":["1-M", "混雑していない", ":".join(map(str, [datetime.datetime.now().hour, datetime.datetime.now().minute]))],
+        "1O":["1-O", "混雑していない", ":".join(map(str, [datetime.datetime.now().hour, datetime.datetime.now().minute]))],
+        "1S":["1-S", "混雑していない", ":".join(map(str, [datetime.datetime.now().hour, datetime.datetime.now().minute]))],
+        "1T":["1-T", "混雑していない", ":".join(map(str, [datetime.datetime.now().hour, datetime.datetime.now().minute]))],
     },
+    "南館2階":{},
+    "南館3階":{},
+    "南館4階":{},
     "三号館":{}
 }
 
