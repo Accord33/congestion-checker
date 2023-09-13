@@ -1,105 +1,46 @@
-from flask import Flask, render_template, redirect, url_for, request
-from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required
-from flask_sqlalchemy import SQLAlchemy
-from werkzeug.security import generate_password_hash, check_password_hash
-import json
-import os
+from flask import Flask, render_template, request, redirect, url_for
+import datetime
 
 app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///user.db"
-app.config['SECRET_KEY'] = os.urandom(24)
-db = SQLAlchemy(app)
 
-login_manager = LoginManager()
-login_manager.init_app(app)
+# 各クラスのデータベース
+database = {
+    "北館":{},
+    "南館":{
+        "1A":["1-A", "混雑していない", ":".join(map(str, [datetime.datetime.now().hour, datetime.datetime.now().minute]))],
+        "1B":["1-B", "混雑していない", ":".join(map(str, [datetime.datetime.now().hour, datetime.datetime.now().minute]))],
+        "1C":["1-C", "混雑していない", ":".join(map(str, [datetime.datetime.now().hour, datetime.datetime.now().minute]))],
+        "1D":["1-D", "混雑していない", ":".join(map(str, [datetime.datetime.now().hour, datetime.datetime.now().minute]))],
+        "1E":["1-E", "混雑していない", ":".join(map(str, [datetime.datetime.now().hour, datetime.datetime.now().minute]))],
+        "1F":["1-F", "混雑していない", ":".join(map(str, [datetime.datetime.now().hour, datetime.datetime.now().minute]))],
+        "1G":["1-G", "混雑していない", ":".join(map(str, [datetime.datetime.now().hour, datetime.datetime.now().minute]))],
+    },
+    "三号館":{}
+}
 
-class User(UserMixin, db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(50), nullable=False, unique=True)
-    password = db.Column(db.String(25))
+# メインページ 館ごとに混雑状況を確認できる
+@app.route("/<tabname>")
+def main(tabname):
+    return render_template("index.html", tabname=tabname, data=database[tabname])
 
-@login_manager.user_loader
-def load_user(user_id):
-    return User.query.get(int(user_id))
+# 混雑状況の更新ページ
+@app.route("/update/<tabname>", methods=["GET"])
+def update(tabname):
+    _class = request.args.get("class")
+    congestion = request.args.get("congestion")
+    print(_class, congestion)
+    if _class != None and congestion != None:
+        database[tabname][_class][1] = congestion
+        database[tabname][_class][2] = ":".join(map(str, [datetime.datetime.now().hour, datetime.datetime.now().minute]))
+        print(database)
+    return render_template("update.html",tabname=tabname, data=database[tabname])
 
-
+# /に来たら北館ページに遷移
 @app.route("/")
-def home():
-    return render_template("index.html", name="Home")
+def redi():
+    return redirect("/北館")
 
-@app.route("/<path>")
-def all_page(path):
-    print(path)
-    if path == "index":
-        redirect(url_for("main"))
-    if path == "service":
-        with open("blog-database.json","r") as f:
-            blog_list = json.loads(f.read())[:6]
-        return render_template(f"{path}.html",blogs=blog_list, length=[i for i in range(len(blog_list))], name=path)
-    return render_template(f"{path}.html",name=path)
-
-@app.route("/membersblog/<path>")
-def blog_view(path):
-    with open(f"templates/blogs/{path}.md") as f:
-        text = f.read()
-    return render_template("blog.html",text=text, name=path)
-
-@app.route("/app/<dirname>/<filename>")
-def webapp(dirname, filename):
-    return render_template(f"app/{dirname}/{filename}")
-
-@app.route("/lab/home")
-def store():
-    return render_template("ECsite/home.html")
-
-
-@app.route("/login", methods=["GET","POST"])
-def login():
-    if request.method == "POST":
-        username = request.form.get('username')
-        password = request.form.get('password')
-        user = User.query.filter_by(username=username).first()
-        if user == None:
-            return redirect("/login")
-        else:
-            if check_password_hash(user.password, password):
-                login_user(user)
-                return redirect('/lab/home')
-            else:
-                return redirect("/login")
-    else:
-        return render_template("login.html")
-
-@app.route("/signup", methods=["POST","GET"])
-def signup():
-    if request.method == "POST":
-        username = request.form.get("username")
-        password = request.form.get("password")
-        user = User(username=username, password=generate_password_hash(password, method="sha256"))
-        db.session.add(user)
-        db.session.commit()
-        return redirect("/login")
-    else:
-        return render_template("signup.html")
-
-@app.route("/logout")
-@login_required
-def logout():
-    logout_user()
-    return redirect("/login")
-
-@app.route("/ddd")
-@login_required
-def ddd():
-    return render_template("ddd.html")
-
-@app.route("/.well-known/acme-challenge/Xv4qeNwPiY9U-Z_Vn2gASPc160q24U2m-s7R_uNAezk")
-def ssl():
-    return "Xv4qeNwPiY9U-Z_Vn2gASPc160q24U2m-s7R_uNAezk.pyhsdZOqfHUU5gBKC6xDBU2HFqQQbDiN3p6SKuZ9mKY"
-
-@app.route("/test")
-def test():
-    return render_template("test.html")
-
+# 実働時にはdebugはオフに
+# 今回は実験がてら、flaskのテストサーバーではなく、wsgiのサーバーを使って実装したい
 if __name__ == "__main__":
-    app.run(port=5002, debug=True,host="0.0.0.0")
+    app.run(port=8000, host="0.0.0.0", debug=True)
