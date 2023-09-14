@@ -114,7 +114,8 @@ def update(tabname):
 # /に来たら北館ページに遷移
 @app.route("/")
 def redi():
-    return redirect("北館2階")
+    # ここはローカルと外部で書き換える
+    return redirect("http://ict-lab.toyo-ushiku.jp/北館1階")
 
 # 実働時にはdebugはオフに
 # 今回は実験がてら、flaskのテストサーバーではなく、wsgiのサーバーを使って実装したい
