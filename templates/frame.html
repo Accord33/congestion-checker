@@ -5,26 +5,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="shortcut icon" href="https://cdn.discordapp.com/attachments/828286173700816947/976693328487792651/3_20220519125016.png" >
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../static/css/style.css">
     <link rel="shortcut icon" href="https://cdn.discordapp.com/attachments/828286173700816947/976693328487792651/3_20220519125016.png">
 </head>
 <body>
     <header>
-        <h1><a href="/北館1階">混雑情報.com</a></h1>
-        <a href="北館1階"><div>北館1階</div></a>
-        <a href="北館2階"><div>北館2階</div></a>
-        <a href="北館3階"><div>北館3階</div></a>
-        <a href="北館4階"><div>北館4階</div></a>
-        <a href="南館2階"><div>南館2階</div></a>
-        <a href="南館3階"><div>南館3階</div></a>
-        <a href="南館4階"><div>南館4階</div></a>
-        <a href="三号館1階"><div>三号館1階</div></a>
-        <a href="三号館2階"><div>三号館2階</div></a>
-        <a href="三号館3階"><div>三号館3階</div></a>
-        <a href="三号館4階"><div>三号館4階</div></a>
+        <div class="header"><h1 class="title">混雑状況.com</h1></div>
+        <input type="checkbox" class="openSidebarMenu" id="openSidebarMenu">
+        <label for="openSidebarMenu" class="sidebarIconToggle">
+          <div class="spinner diagonal part-1"></div>
+          <div class="spinner horizontal"></div>
+          <div class="spinner diagonal part-2"></div>
+        </label>
+        <div id="sidebarMenu">
+          <ul class="sidebarMenuInner">
+            <a href="北館1階"><li>北館1階</li></a>
+            <a href="北館2階"><li>北館2階</li></a>
+            <a href="北館3階"><li>北館3階</a>
+            <a href="北館4階"><li>北館4階</li></a>
+            <a href="南館2階"><li>南館2階</li></a>
+            <a href="南館3階"><li>南館3階</li></a>
+            <a href="南館4階"><li>南館4階</li></a>
+            <a href="三号館1階"><li>三号館1階</li></a>
+            <a href="三号館2階"><li>三号館2階</li></a>
+            <a href="三号館3階"><li>三号館3階</li></a>
+            <a href="三号館4階"><li>三号館4階</li></a>
+
+          </ul>
+        </div>
     </header>
+    <main>
     {% block content %}
     <!-- main -->
     {% endblock %}
+    </main>
 </body>
 </html>
