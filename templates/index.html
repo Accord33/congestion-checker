@@ -2,11 +2,9 @@
 {% block content %}
 <h1>{{tabname}}</h1>
 {% for k, v in data.items() %}
-<div>
-    <p>{{v[0]}}</p>
-    <p>混雑状況 {{v[1]}}</p>
-    <p>最終編集時間 {{v[2]}}</p>    
+<div class="block" id="btn3" onclick="remove_hidden('{{v[1]}}', '{{v[2]}}', '{{v[3]}}')">
+    <p>場所　{{v[0]}}</p>
+    <p>出店クラス　{{v[1]}}</p>
 </div>
-
 {% endfor %}
 {% endblock %}
