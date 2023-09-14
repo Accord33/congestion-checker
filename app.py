@@ -114,7 +114,7 @@ def update(tabname):
 # /に来たら北館ページに遷移
 @app.route("/")
 def redi():
-    return redirect(url_for("北館2階"))
+    return redirect("北館2階")
 
 # 実働時にはdebugはオフに
 # 今回は実験がてら、flaskのテストサーバーではなく、wsgiのサーバーを使って実装したい
