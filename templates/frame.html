@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>混雑情報ドットコム</title>
     <link rel="shortcut icon" href="https://cdn.discordapp.com/attachments/828286173700816947/976693328487792651/3_20220519125016.png" >
     <link rel="stylesheet" href="../static/css/style.css">
     <link rel="shortcut icon" href="https://cdn.discordapp.com/attachments/828286173700816947/976693328487792651/3_20220519125016.png">
@@ -36,9 +36,39 @@
         </div>
     </header>
     <main>
+
+    <div id="mask" class="hidden"></div>
+    <section id="modal" class="hidden">
+        <p id="classname"></p>
+        <p id="congestion"></p>
+        <p id="lastEditTime"></p>
+    </section>
+
     {% block content %}
     <!-- main -->
     {% endblock %}
     </main>
+    <script>
+        let mask = document.getElementById('mask');
+        let modal = document.getElementById('modal');
+
+        let classname = document.getElementById('classname');
+        let congestion = document.getElementById('congestion');
+        let lastEditTime = document.getElementById('lastEditTime');
+
+        function remove_hidden(c, co, t) {
+            mask.classList.remove("hidden");
+            modal.classList.remove("hidden");
+            console.log(c);
+            classname.innerHTML = c;
+            congestion.innerHTML = "混雑状況　"+co;
+            lastEditTime.innerHTML = "最終更新時間　"+t;
+        }
+
+        mask.addEventListener('click', () => {
+            mask.classList.add('hidden');
+            modal.classList.add('hidden');
+        });
+    </script>
 </body>
 </html>
