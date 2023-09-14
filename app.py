@@ -117,6 +117,10 @@ def redi():
     # ここはローカルと外部で書き換える
     return redirect("http://ict-lab.toyo-ushiku.jp/北館1階")
 
+@app.route("/update")
+def redirect_update():
+    return redirect("http://ict-lab.toyo-ushiku.jp/update/北館1階")
+
 # 実働時にはdebugはオフに
 # 今回は実験がてら、flaskのテストサーバーではなく、wsgiのサーバーを使って実装したい
 if __name__ == "__main__":
