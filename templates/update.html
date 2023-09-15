@@ -2,17 +2,20 @@
 {% block content %}
 <h1>{{tabname}}</h1>
 {% for k, v in data.items() %}
+<div class="block">
 <p>{{v[0]}}</p>
-<p>混雑状況 {{v[1]}}</p>
-<p>最終編集時間 {{v[2]}}</p>    
+<p>出店クラス {{v[1]}}</p>
+<p>混雑状況 {{v[2]}}</p>
+<p>最終編集時間 {{v[3]}}</p>    
 <div name="class"></div>
-<select name="{{k}}" id="{{k}}">
+<select name="{{k}}" id="{{k}}" >
     <option value="">選択</option>
     <option value="混雑している">混雑している</option>
     <option value="少し混雑している">少し混雑している</option>
     <option value="混雑していない">混雑していない</option>
 </select>
 <input type="button" onclick="A('{{k}}')" value="送信">
+</div>
 
 {% endfor %}
 
