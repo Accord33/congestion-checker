@@ -1,6 +1,7 @@
 {% extends "frame.html" %}
 {% block content %}
 <h1>{{tabname}}</h1>
+<img src="../static/img/{{tabname}}.jpg">
 {% for k, v in data.items() %}
 <div class="block" id="btn3" onclick="remove_hidden('{{v[1]}}', '{{v[2]}}', '{{v[3]}}')">
     <p>場所　{{v[0]}}</p>
